@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Hadi | To-Do list</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="task">
+      <h3>My to-do list</h3>
+      <p>Double-click an item to mark it complete</p>
+      <input type="text" name="" id="add">
+      <button type="submit" id="btnadd">Add</button>
+
+      <div class="resalt">
+        <ol type="1">
+          <li id="t">My</li>
+          <li id="t">to-do</li>
+          <li id="t">list</li>
+        </ol>
+      </div>
+
+      <button type="submit" id="btn1">clear complete</button>
+      <button type="submit" id="btn2">Empty List</button>
+      <button type="submit" id="btn3">Save List</button>
+    </div>
+  </div>
+
+
+
+  <script>
+  const add=document.getElementById("btnadd");
+  const text=document.getElementById("add");
+  let res=document.querySelector("ol");
+  let clear=document.getElementById("btn1");
+  let Empty=document.getElementById("btn2");
+  let save =document.getElementById("btn3");
+  add.addEventListener("click",(eo)=>{
+    eo.preventDefault()
+ 
+    
+    let ttt=`
+    <li id="t">${text.value}</li>
+    `
+    res.innerHTML+=ttt
+  })
+  //clear
+  clear.addEventListener("click",(eo)=>{
+    res.innerHTML=""
+    text.value=""
+    delloacal()
+  })
+  //Empty
+  Empty.addEventListener("click",(eo)=>{
+    res.innerHTML=""
+  })
+  //save
+  save.addEventListener("click",(eo)=>{
+    var lst=[]
+    let myall=document.querySelectorAll("#t")
+    myall.forEach((e)=>{
+      lst.push(e.textContent) 
+    })
+    lst.forEach((i)=>{
+      addloacal(i)
+    })
+    
+  })
+  
+  
+  // part local storage
+  function addloacal(d){
+    
+    window.localStorage.setItem('task',d);
+  }
+  function delloacal(){
+  window.localStorage.clear('task');
+  }
+  function getloacal(){
+  let data=window.localStorage.getItem("task");
+  return data
+  }
+
+setTimeout(function(){
+  res.innerHTML=""
+  let ddd=getloacal()
+  if(ddd==null){
+    
+  }else{
+  let ttt=`
+    <li id="t">${ddd}</li>
+    `
+    res.innerHTML+=ttt
+  }
+},5000)
+  </script>
+</body>
+
+</html>
